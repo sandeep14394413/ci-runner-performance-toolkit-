@@ -1,4 +1,4 @@
-name: Runner Diagnostics
+name: Test Windows Runner
 
 on:
   workflow_dispatch:
@@ -10,14 +10,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Who am I
-        shell: cmd
-        run: whoami
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
 
-      - name: Current Directory
+      - name: Verify Python
         shell: cmd
-        run: cd
+        run: python --version
 
-      - name: List Repository Files
+      - name: Verify Pip
         shell: cmd
-        run: dir
+        run: pip --version
+
+      - name: Verify Git
+        shell: cmd
+        run: git --version
+
+      - name: Hello
+        shell: cmd
+        run: echo Runner is working successfully!
