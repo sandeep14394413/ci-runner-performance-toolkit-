@@ -1,32 +1,80 @@
-name: Test Windows Runner
+# ============================================================
+# Test Windows Self Hosted Runner
+# ============================================================
+# Purpose:
+#   Verify the Windows self-hosted runner is working correctly.
+#
+# Checks:
+#   - Repository checkout
+#   - PowerShell 7 (pwsh)
+#   - Git installation
+#   - Python installation
+#   - Current working directory
+#
+# Trigger:
+#   Manual (workflow_dispatch)
+# ============================================================
+
+name: Test Windows Self Hosted Runner
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  runner-test:
     runs-on: self-hosted
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
+      - name: Print Welcome Message
+        shell: pwsh
+        run: |
+          Write-Host ""
+          Write-Host "======================================="
+          Write-Host " Windows Self Hosted Runner Test"
+          Write-Host "======================================="
+          Write-Host ""
 
-      - name: Verify Python
-        shell: cmd
-        run: python --version
+      - name: Show Runner Information
+        shell: pwsh
+        run: |
+          Write-Host "Runner Name : $env:RUNNER_NAME"
+          Write-Host "OS          : $env:RUNNER_OS"
+          Write-Host "Architecture: $env:RUNNER_ARCH"
+          Write-Host "Workspace   : $env:GITHUB_WORKSPACE"
 
-      - name: Verify Pip
-        shell: cmd
-        run: pip --version
+      - name: Show Current Directory
+        shell: pwsh
+        run: |
+          Get-Location
 
-      - name: Verify Git
-        shell: cmd
-        run: git --version
+      - name: Show Git Version
+        shell: pwsh
+        run: |
+          git --version
 
-      - name: Hello
-        shell: cmd
-        run: echo Runner is working successfully!
+      - name: Show Python Version
+        shell: pwsh
+        run: |
+          python --version
+          pip --version
+
+      - name: Display PATH
+        shell: pwsh
+        run: |
+          $env:PATH -split ';'
+
+      - name: Verify Python Location
+        shell: pwsh
+        run: |
+          Get-Command python -ErrorAction SilentlyContinue
+
+      - name: Runner Test Completed
+        shell: pwsh
+        run: |
+          Write-Host ""
+          Write-Host "======================================="
+          Write-Host " Runner verification completed!"
+          Write-Host "======================================="
