@@ -24,6 +24,14 @@ jobs:
         shell: cmd
         run: git --version
 
+      - name: Show PATH
+        shell: cmd
+        run: echo %PATH%
+
+      - name: Find Python
+        shell: cmd
+        run: where python
+
       - name: Show Python Version
         shell: cmd
         run: python --version
