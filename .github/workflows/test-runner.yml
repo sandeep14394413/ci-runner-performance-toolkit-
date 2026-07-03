@@ -4,31 +4,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  diagnose:
-    runs-on:
-      - self-hosted
+  test:
+    runs-on: self-hosted
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Who am I
         shell: cmd
         run: whoami
 
-      - name: Username
+      - name: Current Directory
         shell: cmd
-        run: echo %USERNAME%
+        run: cd
 
-      - name: User Profile
+      - name: List Repository Files
         shell: cmd
-        run: echo %USERPROFILE%
-
-      - name: PATH
-        shell: cmd
-        run: echo %PATH%
-
-      - name: List Python Folder
-        shell: cmd
-        run: dir "C:\Users\abcom\AppData\Local\Programs\Python\Python313"
-
-      - name: Check Python EXE
-        shell: cmd
-        run: if exist "C:\Users\abcom\AppData\Local\Programs\Python\Python313\python.exe" (echo FOUND) else (echo NOT FOUND)
+        run: dir
