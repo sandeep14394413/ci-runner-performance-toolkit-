@@ -1,37 +1,34 @@
-name: Test Windows Runner
+name: Runner Diagnostics
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  diagnose:
     runs-on:
       - self-hosted
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Print Hello
+      - name: Who am I
         shell: cmd
-        run: echo Hello from my Windows Self Hosted Runner
+        run: whoami
 
-      - name: Show Current Directory
+      - name: Username
         shell: cmd
-        run: cd
+        run: echo %USERNAME%
 
-      - name: Show Git Version
+      - name: User Profile
         shell: cmd
-        run: git --version
+        run: echo %USERPROFILE%
 
-      - name: Show PATH
+      - name: PATH
         shell: cmd
         run: echo %PATH%
 
-      - name: Find Python
+      - name: List Python Folder
         shell: cmd
-        run: where python
+        run: dir "C:\Users\abcom\AppData\Local\Programs\Python\Python313"
 
-      - name: Show Python Version
+      - name: Check Python EXE
         shell: cmd
-        run: python --version
+        run: if exist "C:\Users\abcom\AppData\Local\Programs\Python\Python313\python.exe" (echo FOUND) else (echo NOT FOUND)
