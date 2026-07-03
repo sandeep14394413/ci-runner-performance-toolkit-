@@ -13,13 +13,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Print Hello
+        shell: cmd
         run: echo Hello from my Windows Self Hosted Runner
 
       - name: Show Current Directory
-        run: pwd
+        shell: cmd
+        run: cd
 
       - name: Show Git Version
+        shell: cmd
         run: git --version
 
       - name: Show Python Version
+        shell: cmd
         run: python --version
